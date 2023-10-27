@@ -19,33 +19,42 @@ export default function ChatApp() {
   const [recepientPublicKey, setRecepientPublicKey] = useState('');
   const [message, setMessage] = useState('');
   const [receivedMessages, setReceivedMessages] = useState([]);
-  const [loggedin, setLoggedin] = useState();
+  const [loggedIn, setLoggedIn] = useState('');
 
   useEffect(() => {
-    if (localStorage.getItem('logged')) {
-      setLoggedin(true);
+    const loggedInUser = localStorage.getItem("userName");
+    if (loggedInUser) {
+      const foundUser = loggedInUser;
+      setLoggedIn(foundUser);
+      setPrivateKey(localStorage.getItem('privateKey'));
+      setUsername(foundUser);
+      socket.emit('requestUsers');
     }
 
+    return () => {
+      socket.off('requestUsers');
+    }
+  }, [])
+
+  useEffect(() => {
     socket.on('privateKey', (key) => {
       console.log("Received private key:", key); 
+      localStorage.setItem('privateKey', key);
       setPrivateKey(key);
     });
+
+    socket.on('publicKey', (key) => {
+      localStorage.setItem('publicKey', key);
+    })
 
     socket.on('users', (usersList) => {
       setUsers(usersList);
     });
 
-    socket.on('receiveMessage', ({ sender, encryptedMessage }) => {
-      var sentBy = '';
-      for (const item of users) {
-        console.log(item);
-        if (item.id === sender) {
-          sentBy = item.username;
-        }
-      }
-      console.log(sentBy);
-      setReceivedMessages(prev => [...prev, { sender: sentBy, message: encryptedMessage }]);
+    socket.emit('requestUsers');
 
+    socket.on('receiveMessage', ({ sender, encryptedMessage }) => {
+      setReceivedMessages(prev => [...prev, { sender: sender, message: encryptedMessage }]);
       // if (privateKey) {
       //   const decryptedMessage = decryptMessage(encryptedMessage, privateKey);
       //   setReceivedMessages(prev => [...prev, { sender: users[sender].username, message: decryptedMessage }]);
@@ -57,6 +66,7 @@ export default function ChatApp() {
       socket.off('privateKey');
       socket.off('users');
       socket.off('receiveMessage');
+      socket.off('requestUsers');
   };
 
   }, []);
@@ -66,9 +76,18 @@ export default function ChatApp() {
       alert('Please enter a username');
       return;
     }
-    localStorage.setItem('logged', username);
     socket.emit('register', username);
+    setLoggedIn(username);
+    localStorage.setItem('userName', username);
   };
+
+  const logoff = () => {
+    localStorage.clear();
+    setLoggedIn('');
+    setUsername('');
+    setPrivateKey('');
+    socket.emit('logoff');
+  }
 
   const sendMessage = () => {
     const encryptedMessage = message;
@@ -124,7 +143,7 @@ export default function ChatApp() {
   return (
     <ThemeProvider theme={theme}>
       <div>
-        {!privateKey ? (
+        {!loggedIn ? (
         <div style={{ minHeight: '80vh' }}>
           <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '90vh', flexDirection: 'column'}}>
             <TextField
@@ -149,7 +168,7 @@ export default function ChatApp() {
             <Grid container gap={3} mt={8}>
               <Grid item xs={3} sm={4} md={2} mt={2} textAlign='center'>
                 <Box>
-                <button className='leaveChat__btn'>LEAVE CHAT</button>
+                <button onClick={logoff} className='leaveChat__btn'>LEAVE CHAT</button>
                 <h4  className='chat__header'>ACTIVE USERS</h4>
                   {Object.entries(users).map(([id, user]) => (
                     user.username === username ? null :
@@ -177,6 +196,7 @@ export default function ChatApp() {
                   <Typography sx={{ textAlign: 'center', width: '100%', backgroundColor: 'primary.main', pt: 1, pb: 1, color: 'white', fontSize: '14pt'}}>{username}</Typography>
                   {receivedMessages.map((message, index) => (
                     <div key={index}>
+                      <span style={{ width: '20px', marginRight: '10px' }} >{message.sender}</span>
                       <TextField 
                         maxRows={4}
                         minRows={1}

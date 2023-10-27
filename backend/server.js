@@ -16,9 +16,9 @@ let users = [];
 
 io.on('connection', (socket) => {
   // Register user
+  
   socket.on('register', (username) => {
-    console.log('User connected', socket.id);
-    console.log("registering user:", username)
+    console.log("registering user:", username, " ", socket.id)
       const { publicKey, privateKey } = generateKeyPair({bits: 512, e: 0x10001});
 
       users.push({
@@ -26,32 +26,46 @@ io.on('connection', (socket) => {
         username: username,
         publicKey: publicKey
       })
-
-      // users[socket.id] = {
-      //     username: username,
-      //     publicKey: publicKey
-      // };
-
+      
       // Send back the generated private key (ONLY ONCE, NEVER STORE THIS ON SERVER!)
       socket.emit('privateKey', privateKey);
+      socket.emit('publicKey', publicKey);
 
       // Update users list for all connected clients
       // socket.emYit("newUserResponse", users);
       io.emit('users', users);
   });
-  // Listen for encrypted messages and broadcast
-  socket.on('encryptedMessage', ({ recipientId, encryptedMessage }) => {
-      console.log("Recieved encryted message");
-      console.log(recipientId);
-      console.log(encryptedMessage);
-      console.log(users);
-      socket.to(recipientId).emit('receiveMessage', { sender: socket.id, encryptedMessage });
+
+  socket.on('requestUsers', () => {
+    socket.emit('users', users);
   });
 
+  socket.on('users', () => {
+    io.emit('users', users);
+  })
+  // Listen for encrypted messages and broadcast
+  socket.on('encryptedMessage', ({ recipientId, encryptedMessage }) => {
+    console.log("Recieved encryted message");
+    console.log(recipientId);
+    console.log(encryptedMessage);
+    console.log(users);
+    const senderUser = users.find(user => user.id === socket.id);
+    if (senderUser) {
+      const senderUsername = senderUser.username;
+      socket.to(recipientId).emit('receiveMessage', { sender: senderUsername, encryptedMessage });
+    }
+  });
+
+  socket.on('logoff', () => {
+    console.log('User Logged Off');
+    users = users.filter(user => user.id !== socket.id);
+    io.emit('users', users);
+  })
+
   socket.on('disconnect', () => {
-      console.log('User disconnected', socket.id);
-      delete users[socket.id];
-      io.emit('users', users);
+    console.log('User disconnected', socket.id);
+    users = users.filter(user => user.id !== socket.id);
+    io.emit('users', users);
   });
 });
 
