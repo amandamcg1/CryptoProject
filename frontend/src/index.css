@@ -25,8 +25,11 @@ code {
   width: 100px;
   margin-right: 10px;
   margin: 10px;
-  background-color: pink;
+  background-color: #4056A1;
+  color: white;
   height: 20px;
   text-align: center;
   padding: 10px 0;
+  border-radius: 5px;
+  font-size: 10pt;
 }

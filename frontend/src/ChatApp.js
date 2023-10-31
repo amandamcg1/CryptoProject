@@ -252,10 +252,7 @@ export default function ChatApp() {
                       <Button sx={{ m: 1,}} onClick={() => handleDecryptClick(index)} variant="outlined" color="secondary" size="small">Decrypt</Button>
                       </div>
                     </div>
-                      
-
-                      {/* {message.sender} {message.message} */}
-                    </div>
+                  </div>
                   ))}
                   </div>
                 </Box>
