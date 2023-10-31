@@ -19,5 +19,14 @@ code {
   outline: none;
   background-color: #F13C20;
   cursor: pointer;
-  color: 'white';
+}
+
+.sender__user {
+  width: 100px;
+  margin-right: 10px;
+  margin: 10px;
+  background-color: pink;
+  height: 20px;
+  text-align: center;
+  padding: 10px 0;
 }

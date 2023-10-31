@@ -4,11 +4,14 @@ import forge from 'node-forge';
 import Grid from '@mui/material/Unstable_Grid2';
 
 import io from "socket.io-client";
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Alert, Box, Button, Collapse, IconButton, TextField, Typography } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
 import theme from "./Theme";
+import CloseIcon from '@mui/icons-material/Close';
+
 const SERVER = "http://127.0.0.1:8080";
 const socket = io(SERVER);
+
 export default function ChatApp() {
   
   const [username, setUsername] = useState('');
@@ -20,6 +23,26 @@ export default function ChatApp() {
   const [message, setMessage] = useState('');
   const [receivedMessages, setReceivedMessages] = useState([]);
   const [loggedIn, setLoggedIn] = useState('');
+  const [open, setOpen] = useState(true);
+  const [alertDisplay, setAlertDisplay] = useState('none');
+  const [alertMessage, setAlertMessage] = useState('');
+
+  function Alerted ({ message }) {
+    return (<>
+    <Alert
+      severity="error"
+    >
+      {message}
+    </Alert>
+    </>)
+  }
+
+  useEffect(() => {
+    setTimeout(() => {
+      setAlertDisplay('none')
+    }, 20000);
+  }, [])
+  
 
   useEffect(() => {
     const loggedInUser = localStorage.getItem("userName");
@@ -76,6 +99,10 @@ export default function ChatApp() {
       alert('Please enter a username');
       return;
     }
+    if (username.length > 12) {
+      alert('Username must be less than or 12 characters');
+      return;
+    }
     socket.emit('register', username);
     setLoggedIn(username);
     localStorage.setItem('userName', username);
@@ -90,6 +117,11 @@ export default function ChatApp() {
   }
 
   const sendMessage = () => {
+    if (message.length === 0) {
+      // alert('Enter a message');
+      setAlertDisplay('block');
+      return;
+    }
     const encryptedMessage = message;
     setMessage('');
     socket.emit('encryptedMessage', { recipientId, encryptedMessage });
@@ -103,6 +135,7 @@ export default function ChatApp() {
     console.log(message);
     if (message.length === 0) {
       alert('Enter a message');
+      setAlertDisplay('block');
       return;
     }
     console.log(recepientPublicKey);
@@ -142,6 +175,12 @@ export default function ChatApp() {
 
   return (
     <ThemeProvider theme={theme}>
+      <Box 
+        display={alertDisplay}
+        sx={{ mt: '80px', mb: '-60px', mr: '20px', ml: '20px'}}
+      >
+          <Alerted message={"Error message"} /> 
+      </Box>
       <div>
         {!loggedIn ? (
         <div style={{ minHeight: '80vh' }}>
@@ -168,7 +207,7 @@ export default function ChatApp() {
             <Grid container gap={3} mt={8}>
               <Grid item xs={3} sm={4} md={2} mt={2} textAlign='center'>
                 <Box>
-                <button onClick={logoff} className='leaveChat__btn'>LEAVE CHAT</button>
+                <button onClick={logoff} className='leaveChat__btn' style={{ color: 'white'}}>LEAVE CHAT</button>
                 <h4  className='chat__header'>ACTIVE USERS</h4>
                   {Object.entries(users).map(([id, user]) => (
                     user.username === username ? null :
@@ -192,11 +231,15 @@ export default function ChatApp() {
               </Grid>
               <Grid item xs sm md p={2}>
                 
-                <Box height='65vh' sx={{ width: '100%'}}>
+                <Box height='60vh' sx={{ width: '100%',  mb: '30px'}}>
                   <Typography sx={{ textAlign: 'center', width: '100%', backgroundColor: 'primary.main', pt: 1, pb: 1, color: 'white', fontSize: '14pt'}}>{username}</Typography>
+                  <div style={{ height: '100%', overflowY: 'scroll'}}>
                   {receivedMessages.map((message, index) => (
                     <div key={index}>
-                      <span style={{ width: '20px', marginRight: '10px' }} >{message.sender}</span>
+                    <div style={{ display: 'flex', justifyContent: 'space-between'}}>
+                      <div className="sender__user">{message.sender}</div>
+                      <div style={{ width: '90%', textAlign: 'right'}}>
+
                       <TextField 
                         maxRows={4}
                         minRows={1}
@@ -204,13 +247,17 @@ export default function ChatApp() {
                         variant="standard"
                         value={message.message}
                         aria-readonly
-                        sx={{ width: '70%' }}
+                        sx={{ width: 'calc(100% - 110px)', padding: '10px 0' }}
                       />
-                      <Button onClick={() => handleDecryptClick(index)}>Decrypt</Button>
+                      <Button sx={{ m: 1,}} onClick={() => handleDecryptClick(index)} variant="outlined" color="secondary" size="small">Decrypt</Button>
+                      </div>
+                    </div>
+                      
 
                       {/* {message.sender} {message.message} */}
                     </div>
                   ))}
+                  </div>
                 </Box>
                 <Box >
                   <Typography>Send To: {recepientUser}</Typography>
