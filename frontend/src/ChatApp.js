@@ -4,10 +4,9 @@ import forge from 'node-forge';
 import Grid from '@mui/material/Unstable_Grid2';
 
 import io from "socket.io-client";
-import { Alert, Box, Button, Collapse, IconButton, TextField, Typography } from "@mui/material";
+import { Alert, Box, Button, TextField, Typography } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
 import theme from "./Theme";
-import CloseIcon from '@mui/icons-material/Close';
 
 const SERVER = "http://127.0.0.1:8080";
 const socket = io(SERVER);

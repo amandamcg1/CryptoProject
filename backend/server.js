@@ -11,12 +11,10 @@ const server = http.createServer(app);
 const io = new Server(server, {
     cors: {origin:"http://localhost:3000", methods: ["GET", "POST"]},
 });
-// Mock database
+
 let users = [];
 
-io.on('connection', (socket) => {
-  // Register user
-  
+io.on('connection', (socket) => {  
   socket.on('register', (username) => {
     console.log("registering user:", username, " ", socket.id)
       const { publicKey, privateKey } = generateKeyPair({bits: 512, e: 0x10001});
@@ -77,6 +75,8 @@ function generateKeyPair() {
     };
 }
 
-server.listen(8080, () => {
-  console.log(`listening on *:8080`);
+const port = process.env.PORT || 8080
+
+server.listen(port, () => {
+  console.log(`listening on *:${port}`);
 });
