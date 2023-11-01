@@ -8,7 +8,8 @@ import { Alert, Box, Button, TextField, Typography } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
 import theme from "./Theme";
 
-const SERVER = "http://127.0.0.1:8080";
+// const SERVER = "http://127.0.0.1:8080";
+const SERVER = "https://somethingawesomeproject.onrender.com";
 const socket = io(SERVER);
 
 export default function ChatApp() {
