@@ -72,7 +72,7 @@ function Simulation () {
   return(<>
   <ThemeProvider theme={theme}>
     <Box sx={{ 
-      height: '150px', 
+      height: '180px', 
       backgroundColor: 'primary.main', 
       borderRadius: '0 0 15px 15px', 
       width: '100%', 
@@ -107,10 +107,12 @@ function Simulation () {
       </Grid>
 
       <Typography mb='10px' variant='h4' textAlign='center'>Key Generation</Typography>
-      <Grid container>
-        <Grid item xs={12} sm={6}>
+      <Grid container spacing={3}>
+        <Grid item xs={12} sm={6} md={7}>
           <Grid container>
+            <Typography sx={{ backgroundColor: 'secondary.light', p: 2, borderRadius: '6px', width: '100%'}} textAlign="center" fontSize={17}>Chose a bit size and generate your two keys</Typography>
             <Grid item xs={12} md={6} textAlign='center' mb='15px' p={1}>
+              Public Key
               <TextField
                 variant='outlined'
                 minRows={4}
@@ -131,6 +133,7 @@ function Simulation () {
               </Button>
             </Grid>
             <Grid item xs={12} md={6} mb='15px' textAlign='center' p={1}>
+              Private Key
               <TextField
                 variant='outlined'
                 minRows={4}
@@ -172,7 +175,7 @@ function Simulation () {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={12} sm={6} p={1}>
+        <Grid item xs={12} sm={6} md p={1}>
           <Typography mb='10px' variant='h6' textAlign='center'>How RSA public and private keys are generated</Typography>
           <Typography>
             The bit size dictates how long the RSA key will be. This determines the size of the 
@@ -193,9 +196,10 @@ function Simulation () {
         </Grid>
       </Grid>
       <Typography mb='10px' variant='h4' textAlign='center'>Encryption</Typography>
-      <Grid container>
-        <Grid item xs={12} sm={6}>
+      <Grid container spacing={3}>
+        <Grid item xs={12} sm={6} md={7}>
           <Grid container>
+            <Typography sx={{ backgroundColor: 'secondary.light', p: 2, borderRadius: '6px', width: '100%'}} textAlign="center" fontSize={17}>Enter in some plain text and copy and paste the Public Key above</Typography>
             <Grid item xs={12} lg={6} textAlign='center' mb='15px' p={1}>
               <TextField
                 variant='outlined'
@@ -227,7 +231,7 @@ function Simulation () {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={12} sm={6} p={1}>
+        <Grid item xs={12} sm={6} md p={1}>
           <Typography mb='10px' variant='h6' textAlign='center'>How RSA Encryption works</Typography>
           <Typography>
             Before starting the encryption process, the plaintext message is converted into a numerical representation. 
@@ -250,9 +254,10 @@ function Simulation () {
         </Grid>
       </Grid>
       <Typography mb='10px' variant='h4' textAlign='center'>Decryption</Typography>
-      <Grid container>
-        <Grid item xs={12} sm={6}>
-          <Grid container>
+      <Grid container spacing={3}>
+        <Grid item xs={12} sm={6} md={7}>
+          <Grid container textAlign='center'>
+            <Typography sx={{ backgroundColor: 'secondary.light', p: 2, borderRadius: '6px', width: '100%'}} textAlign="center" fontSize={17}>Copy and Paste the Private Key to get decrypted message</Typography>
             <Grid item xs={12} lg={6} textAlign='center' mb='15px' p={1}>
               <TextField
                 variant='outlined'
@@ -286,7 +291,7 @@ function Simulation () {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={12} sm={6} p={1}>
+        <Grid item xs={12} sm={6} md p={1}>
           <Typography mb='10px' variant='h6' textAlign='center'>How RSA decryption works</Typography>
           
           <Typography>
