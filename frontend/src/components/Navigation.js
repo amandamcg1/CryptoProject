@@ -8,6 +8,7 @@ import {
   Button,
   MenuItem,
   ThemeProvider,
+  Typography,
 } from '@mui/material';
 import React from 'react';
 import MenuIcon from "@mui/icons-material/Menu";
@@ -30,7 +31,24 @@ function Navigation () {
     <AppBar position="fixed" color='default'>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+          <Typography
+            variant="h6"
+            noWrap
+            component="a"
+            href="/"
+            sx={{
+              mr: 2,
+              display: { sm: 'none', md: 'flex' },
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.1rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+          >
+            ASYMMETRY IN SECURITY
+          </Typography>
+          <Box sx={{ flexGrow: 1, display: { sm: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -46,21 +64,27 @@ function Navigation () {
               anchorEl={anchorElNav}
               anchorOrigin={{
                 vertical: 'bottom',
-                horizontal: 'left',
+                horizontal: 'right',
               }}
               keepMounted
               transformOrigin={{
                 vertical: 'top',
-                horizontal: 'left',
+                horizontal: 'right',
               }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
               sx={{
-                display: { xs: 'block', md: 'none' },
+                display: { sm: 'block', md: 'none' },
               }}
             >
                 <MenuItem onClick={handleCloseNavMenu} component={Link} to='/'>
                   Home
+                </MenuItem>
+                <MenuItem onClick={handleCloseNavMenu} component={Link} to='/terminology'>
+                  Terminology
+                </MenuItem>
+                <MenuItem onClick={handleCloseNavMenu} component={Link} to='/examples'>
+                  Examples
                 </MenuItem>
                 <MenuItem onClick={handleCloseNavMenu} component={Link} to='/simulation'>
                   Simulation
@@ -69,8 +93,27 @@ function Navigation () {
                   Chat
                 </MenuItem>
             </Menu>
-          </Box>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          </Box>  
+          <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              href="/"
+              sx={{
+                mr: 2,
+                display: { sm: 'flex', md: 'none' },
+                flexGrow: 1,
+                fontFamily: 'monospace',
+                fontWeight: 700,
+                color: 'black',
+                letterSpacing: '.3rem',
+                textDecoration: 'none',
+              }}
+            >
+              ASYMMETRY IN SECURITY
+            </Typography>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex', justifyContent: 'right' } }}>
+          
               <Button
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'black', display: 'block' }}
@@ -78,6 +121,22 @@ function Navigation () {
                 to='/'
               >
                 Home
+              </Button>
+              <Button
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'black', display: 'block' }}
+                component={Link}
+                to='/terminology'
+              >
+                Terminology
+              </Button>
+              <Button
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'black', display: 'block' }}
+                component={Link}
+                to='/examples'
+              >
+                Examples
               </Button>
               <Button
                 onClick={handleCloseNavMenu}
@@ -95,9 +154,7 @@ function Navigation () {
               >
                 Chat
               </Button>
-          </Box>
-
-          
+          </Box>          
         </Toolbar>
       </Container>
     </AppBar>
