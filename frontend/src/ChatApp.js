@@ -23,16 +23,15 @@ export default function ChatApp() {
   const [message, setMessage] = useState('');
   const [receivedMessages, setReceivedMessages] = useState([]);
   const [loggedIn, setLoggedIn] = useState('');
-  const [open, setOpen] = useState(true);
   const [alertDisplay, setAlertDisplay] = useState('none');
   const [alertMessage, setAlertMessage] = useState('');
 
-  function Alerted ({ message }) {
+  function Alerted () {
     return (<>
     <Alert
       severity="error"
     >
-      {message}
+      {alertMessage}
     </Alert>
     </>)
   }
@@ -96,11 +95,13 @@ export default function ChatApp() {
 
   const register = () => {
     if (username.length === 0) {
-      alert('Please enter a username');
+      setAlertMessage("Please enter a username");
+      setAlertDisplay('block');
       return;
     }
     if (username.length > 12) {
-      alert('Username must be less than or 12 characters');
+      setAlertMessage("Username must be less than or 12 characters");
+      setAlertDisplay('block');
       return;
     }
     socket.emit('register', username);
@@ -118,7 +119,7 @@ export default function ChatApp() {
 
   const sendMessage = () => {
     if (message.length === 0) {
-      // alert('Enter a message');
+      setAlertMessage("Enter a message");
       setAlertDisplay('block');
       return;
     }
@@ -134,7 +135,7 @@ export default function ChatApp() {
   const encryptMessage = () => {
     console.log(message);
     if (message.length === 0) {
-      alert('Enter a message');
+      setAlertMessage("Enter a message");
       setAlertDisplay('block');
       return;
     }
@@ -179,7 +180,7 @@ export default function ChatApp() {
         display={alertDisplay}
         sx={{ mt: '80px', mb: '-60px', mr: '20px', ml: '20px'}}
       >
-          <Alerted message={"Error message"} /> 
+          <Alerted /> 
       </Box>
       <div>
         {!loggedIn ? (
