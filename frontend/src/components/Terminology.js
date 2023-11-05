@@ -1,15 +1,15 @@
 import * as React from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-
-function createData(name, def) {
-  return { name, def };
-}
+import createData from './createData';
+import { Box, ThemeProvider, Typography } from '@mui/material';
+import theme from '../Theme';
+import styled from '@emotion/styled';
 
 const rows = [
   createData('Public Key', 'A key that is shared with anyone and is used to encrypt data.'),
@@ -22,30 +22,55 @@ const rows = [
   createData('Digital Certificate', 'An electronic document that uses a digital signature to bind together a public key with an identity.'),
 ];
 
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.secondary.dark,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
+
 export default function Terminology() {
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 550 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Term</TableCell>
-            <TableCell align="left">Meaning</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow
-              key={row.name}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {row.name}
-              </TableCell>
-              <TableCell align="left">{row.def}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <ThemeProvider theme={theme}>
+    <Box sx={{ mt: 15, width: '100%', display: 'flex', justifyContent: 'center' }}>
+      <Box sx={{ width: '80%', mb: 5}}>
+        <Typography 
+          fontSize={40} 
+          color='primary.main' 
+          mb={2} 
+          textAlign={{ sm: 'center', md: 'left', lg: 'center'}}
+        >
+          Terminology
+        </Typography>
+        <Typography fontSize={17} mb={2} sx={{ fontWeight: 700 }}>This is some of the terminology related to asymmetric cryptography</Typography>
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 550 }} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell>Term</StyledTableCell>
+                <StyledTableCell align="left">Meaning</StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows.map((row) => (
+                <TableRow
+                  key={row.name}
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                >
+                  <TableCell component="th" scope="row" > 
+                    <strong>{row.name}</strong>
+                  </TableCell>
+                  <TableCell align="left">{row.def}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Box>
+    </Box>
+  </ThemeProvider>
   );
 }
