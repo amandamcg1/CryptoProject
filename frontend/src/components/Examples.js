@@ -1,10 +1,6 @@
-import { Card, CardContent, List, ListItem, ListItemText, Paper, TableBody, TableCell, TableContainer, Table, Typography, TableRow, styled, Box, Accordion, AccordionSummary, AccordionDetails, ThemeProvider } from '@mui/material';
+import { Typography,  Box, Accordion, AccordionSummary, AccordionDetails, ThemeProvider } from '@mui/material';
 import React from 'react';
 import Grid from '@mui/material/Unstable_Grid2/Grid2';
-import exampleSubtitle from '../style/exampleSubtitle'
-import exampleBody from '../style/exampleBody';
-import exampleTitle from '../style/exampleTitle';
-import InfoTableCell from '../style/InfoTableCell';
 import ExampleCard from './ExampleCard';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import theme from '../Theme';
