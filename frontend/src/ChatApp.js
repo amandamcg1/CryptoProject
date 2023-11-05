@@ -185,7 +185,7 @@ export default function ChatApp() {
       <div>
         {!loggedIn ? (
         <div style={{ minHeight: '80vh' }}>
-          <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '90vh', flexDirection: 'column'}}>
+          <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '100vh', flexDirection: 'column'}}>
             <TextField
               value={username} 
               onChange={(e) => setUsername(e.target.value)} 
