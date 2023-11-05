@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import forge from 'node-forge';
-import { Box, Button, FormControl, Grid, InputLabel, List, ListItem, NativeSelect, TextField, TextareaAutosize, ThemeProvider, Typography } from '@mui/material';
+import { Box, Button, FormControl, Grid, InputLabel, List, ListItem, NativeSelect, TextField, ThemeProvider, Typography } from '@mui/material';
 import theme from '../Theme';
 import 'katex/dist/katex.min.css';
 import { BlockMath, InlineMath } from 'react-katex';
 
 function Simulation () {
   const [keySize, setKeySize] = useState(512);
-  const [keys, setKeys] = useState(null);
   const [publicKey, setPublicKey] = useState('');
   const [privateKey, setPrivateKey] = useState('');
   const [plaintext, setPlaintext] = useState('');
@@ -19,8 +18,6 @@ function Simulation () {
   const generateKeys = () => {
     const rsa = forge.pki.rsa;
     rsa.generateKeyPair({bits: keySize, workers: -1}, (err, keypair) => {
-      setKeys(keypair);
-      console.log(keypair.publicKey)
       setPublicKey(forge.pki.publicKeyToPem(keypair.publicKey));
       console.log(forge.pki.publicKeyToPem(keypair.publicKey))
       setPrivateKey(forge.pki.privateKeyToPem(keypair.privateKey));
@@ -72,15 +69,16 @@ function Simulation () {
   return(<>
   <ThemeProvider theme={theme}>
     <Box sx={{ 
-      height: '180px', 
-      backgroundColor: 'primary.main', 
-      borderRadius: '0 0 15px 15px', 
-      width: '100%', 
-      justifyContent: 'center', 
-      display: 'flex', 
-      alignItems: 'center' 
+      mt: 15
     }}>
-      <Typography variant='h4' color='white'>RSA Cyrptography</Typography>
+      <Typography 
+          fontSize={40} 
+          color='primary.main' 
+          mb={2} 
+          textAlign={{ sm: 'center', md: 'left', lg: 'center'}}
+        >
+          RSA Cyrptography
+        </Typography>
     </Box>
     <Box width='90%' m='auto' mt='30px'>
       <Typography mb='10px'>
@@ -107,16 +105,17 @@ function Simulation () {
       </Grid>
 
       <Typography mb='10px' variant='h4' textAlign='center'>Key Generation</Typography>
-      <Grid container spacing={3}>
-        <Grid item xs={12} sm={6} md={7}>
+      {/* Key Generation */}
+      <Grid container spacing={1} mb={4}>
+        <Grid item xs={12} md={5} lg={6} order={{ xs: 2, md: 1 }}>
           <Grid container>
             <Typography sx={{ backgroundColor: 'secondary.light', p: 2, borderRadius: '6px', width: '100%'}} textAlign="center" fontSize={17}>Chose a bit size and generate your two keys</Typography>
-            <Grid item xs={12} md={6} textAlign='center' mb='15px' p={1}>
+            <Grid item xs={6} md={12} lg={6} textAlign='center' p={1}>
               Public Key
               <TextField
                 variant='outlined'
-                minRows={4}
-                maxRows={6}
+                minRows={2}
+                maxRows={4}
                 fullWidth
                 multiline
                 sx={{ mb: '10px',}}
@@ -132,12 +131,12 @@ function Simulation () {
                 copy
               </Button>
             </Grid>
-            <Grid item xs={12} md={6} mb='15px' textAlign='center' p={1}>
+            <Grid item xs={6} md={12} lg={6} textAlign='center' p={1}>
               Private Key
               <TextField
                 variant='outlined'
-                minRows={4}
-                maxRows={6}
+                minRows={2}
+                maxRows={4}
                 fullWidth
                 multiline
                 sx={{ mb: '10px',}}
@@ -153,7 +152,7 @@ function Simulation () {
                 copy
               </Button>
             </Grid>
-            <Grid item xs={12} sm={12} mb='10px' textAlign='center' p={1}>
+            <Box width='100%' textAlign='center' mt={5}>
               <FormControl color='secondary' sx={{ m: '10px' }}>
                 <InputLabel variant="outline" htmlFor="uncontrolled-native">Bits</InputLabel>
                 <NativeSelect
@@ -172,10 +171,10 @@ function Simulation () {
                 </NativeSelect>
               </FormControl>
               <Button variant="contained" color='secondary' onClick={generateKeys} sx={{ m: '20px' }}>Generate Keys</Button>
-            </Grid>
+            </Box>
           </Grid>
         </Grid>
-        <Grid item xs={12} sm={6} md p={1}>
+        <Grid item xs={12} md lg order={{ xs: 1, md: 2 }}>
           <Typography mb='10px' variant='h6' textAlign='center'>How RSA public and private keys are generated</Typography>
           <Typography>
             The bit size dictates how long the RSA key will be. This determines the size of the 
@@ -185,8 +184,6 @@ function Simulation () {
             The larger the bit size, the more secure the key pair, but also the slower it will be to perform encryption 
             and decryption operations. The Euler totient of <InlineMath math='n'/> is then calculated <BlockMath math='ϕ(n)=(p-1)(q-1)'/>.
           </Typography>
-        </Grid>
-        <Grid item xs={12} sm={12} p={1}>
           <Typography mb='10px'>
           A public exponent <InlineMath math='e'/> which is greater than 1 and less than the Euler totients of <InlineMath math='n'/> is chosen. <InlineMath math='e'/> must also be coprime to <InlineMath math='ϕ(n)'/>.  A private exponent <InlineMath math='d'/> is then calculated as the modular inverse of <InlineMath math='e'/> modulo the Euler totient of <InlineMath math='n'/>. This means <InlineMath math='de\equiv1\modϕ(n)'/>. This is efficiently computed using the extended Euclidean algorithm.
           </Typography>
@@ -195,16 +192,19 @@ function Simulation () {
           </Typography>
         </Grid>
       </Grid>
+
       <Typography mb='10px' variant='h4' textAlign='center'>Encryption</Typography>
-      <Grid container spacing={3}>
-        <Grid item xs={12} sm={6} md={7}>
+      {/* Encryption */}
+      <Grid container spacing={1} mb={4}>
+        <Grid item xs={12} md={5} lg={6} order={{ xs: 2, md: 1 }}>
           <Grid container>
             <Typography sx={{ backgroundColor: 'secondary.light', p: 2, borderRadius: '6px', width: '100%'}} textAlign="center" fontSize={17}>Enter in some plain text and copy and paste the Public Key above</Typography>
-            <Grid item xs={12} lg={6} textAlign='center' mb='15px' p={1}>
+            <Grid item xs={12} lg={6} textAlign='center' p={1}>
+              Plain Text
               <TextField
                 variant='outlined'
                 minRows={4}
-                maxRows={6}
+                maxRows={4}
                 fullWidth
                 multiline
                 sx={{ mb: '10px',}}
@@ -212,11 +212,12 @@ function Simulation () {
                 onChange={(e) => setPlaintext(e.target.value)}
               />
             </Grid>
-            <Grid item xs={12} lg={6} mb='15px' textAlign='center' p={1}>
+            <Grid item xs={12} lg={6} textAlign='center' p={1}>
+              Paste Public Key
               <TextField
                 variant='outlined'
                 minRows={4}
-                maxRows={6}
+                maxRows={4}
                 fullWidth
                 multiline
                 sx={{ mb: '10px',}}
@@ -224,14 +225,14 @@ function Simulation () {
                 onChange={(e) => setEnterPublicKey(e.target.value)}
               />
             </Grid>
-            <Grid item xs={12} sm={12} mb='10px' textAlign='center' p={1}>
+            <Box width='100%' textAlign='center'>
               <Button variant='contained' color='secondary' onClick={encryptMessage} sx={{ m: '10px' }}>
                 Encrypt
               </Button>
-            </Grid>
+            </Box>
           </Grid>
         </Grid>
-        <Grid item xs={12} sm={6} md p={1}>
+        <Grid item xs={12} md lg order={{ xs: 1, md: 2 }}>
           <Typography mb='10px' variant='h6' textAlign='center'>How RSA Encryption works</Typography>
           <Typography>
             Before starting the encryption process, the plaintext message is converted into a numerical representation. 
@@ -240,9 +241,6 @@ function Simulation () {
             Taking a simple message like "AB", it's converted into 6566 as 'A' becomes 65 and 'B' becomes 66.
             This numerical value is what's actually encrypted using the RSA algorithm.
           </Typography>
-        </Grid>
-
-        <Grid item xs={12} sm={12} p={1}>
           <Typography mb='10px'>
             To encrypt a message using RSA, the plaintext message <InlineMath math='m'/> is raised to the power of the 
             public exponent <InlineMath math='e'/>, and the result is taken modulo <InlineMath math='n'/>.
@@ -253,45 +251,57 @@ function Simulation () {
           </Typography>
         </Grid>
       </Grid>
+
       <Typography mb='10px' variant='h4' textAlign='center'>Decryption</Typography>
-      <Grid container spacing={3}>
-        <Grid item xs={12} sm={6} md={7}>
+      {/* Decryption */}
+      <Grid container spacing={3} mb={4}>
+        <Grid item xs={12} md={5} lg={6} order={{ xs: 2, md: 1 }}>
           <Grid container textAlign='center'>
             <Typography sx={{ backgroundColor: 'secondary.light', p: 2, borderRadius: '6px', width: '100%'}} textAlign="center" fontSize={17}>Copy and Paste the Private Key to get decrypted message</Typography>
-            <Grid item xs={12} lg={6} textAlign='center' mb='15px' p={1}>
+            <Grid item xs={12} lg={6} textAlign='center' p={1}>
               <TextField
                 variant='outlined'
                 minRows={4}
                 maxRows={6}
                 fullWidth
                 multiline
-                sx={{ mb: '10px',}}
+                sx={{ mb: '5px',}}
                 placeholder="Encrypted Message"
                 value={ciphertext} 
                 readOnly
                 onChange={(e) => setCiphertext(e.target.value)}
               />
             </Grid>
-            <Grid item xs={12} lg={6} mb='15px' textAlign='center' p={1}>
+            <Grid item xs={12} lg={6} textAlign='center' p={1}>
               <TextField
                 variant='outlined'
                 minRows={4}
                 maxRows={6}
                 fullWidth
                 multiline
-                sx={{ mb: '10px',}}
+                sx={{ mb: '5px',}}
                 placeholder="Decryption Key (add the private key or try other keys)"
                 onChange={(e) => setEnterPrivateKey(e.target.value)}
               />
             </Grid>
-            <Grid item xs={12} sm={12} mb='10px' textAlign='center' p={1}>
+            <Box width='100%' textAlign='center'>
               <Button variant='contained' color='secondary' onClick={decryptMessage} sx={{ m: '10px' }}>
                 Decrypt
               </Button>
-            </Grid>
+            </Box>
+            <Typography variant='h5' textAlign='center'>Result</Typography>
+          <TextField
+            variant='outlined'
+            minRows={2}
+            maxRows={4}
+            fullWidth
+            multiline
+            placeholder="Result"
+            value={decrypted}
+          />
           </Grid>
         </Grid>
-        <Grid item xs={12} sm={6} md p={1}>
+        <Grid item xs={12} md lg order={{ xs: 1, md: 2 }}>
           <Typography mb='10px' variant='h6' textAlign='center'>How RSA decryption works</Typography>
           
           <Typography>
@@ -303,25 +313,11 @@ function Simulation () {
             and modulus <InlineMath math='n = 55'/>, the decryption would yield a message <InlineMath math='m'/> based on the equation:
             <BlockMath math='m=23^27 \mod 55'/>
           </Typography>
-        </Grid>
-        <Grid item xs={12} sm={12} p={1}>
           <Typography mb='10px'>
             However, determining the exact value of <InlineMath math='m'/> requires the precise private exponent <InlineMath math='d'/> that
             corresponds to the public exponent <InlineMath math='e'/> and <InlineMath math='\phi(n)'/>. In practice, only the holder of 
             the correct private key can accurately and securely recover the original message.
           </Typography>
-        </Grid>
-        <Grid item xs={12} sm={12} p={1} mb={3}>
-        <Typography variant='h5' mb='10px' textAlign='center'>Result</Typography>
-          <TextField
-            variant='outlined'
-            minRows={4}
-            maxRows={6}
-            fullWidth
-            multiline
-            placeholder="Result"
-            value={decrypted}
-          />
         </Grid>
       </Grid>
     </Box>
