@@ -1,5 +1,5 @@
 const exampleBody = {
-  fontSize: 16,
+  fontSize: 14,
   mb: 2
 }
 

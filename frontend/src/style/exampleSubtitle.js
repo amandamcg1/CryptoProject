@@ -1,7 +1,6 @@
 const exampleSubtitle = {
-  fontSize: 22, 
+  fontSize: 18, 
   mb: 1,
-  fontWeight: 10
 }
 
 export default exampleSubtitle;
