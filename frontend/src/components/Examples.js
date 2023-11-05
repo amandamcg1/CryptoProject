@@ -1,187 +1,228 @@
-import { Card, CardContent, List, ListItem, ListItemText, Typography } from '@mui/material';
+import { Card, CardContent, List, ListItem, ListItemText, Paper, TableBody, TableCell, TableContainer, Table, Typography, TableRow, styled, Box, Accordion, AccordionSummary, AccordionDetails, ThemeProvider } from '@mui/material';
 import React from 'react';
+import Grid from '@mui/material/Unstable_Grid2/Grid2';
+import exampleSubtitle from '../style/exampleSubtitle'
+import exampleBody from '../style/exampleBody';
+import exampleTitle from '../style/exampleTitle';
+import InfoTableCell from '../style/InfoTableCell';
+import ExampleCard from './ExampleCard';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import theme from '../Theme';
 
-const RSA = (
+const rsatable = (
   <>
-    <Card variant="outlined">
-      <CardContent>
-        <Typography variant="h5" component="div" sx={{ mb: 1 }}>
-          RSA (Rivest-Shamir-Adleman)
-        </Typography>
-        <Typography color="text.secondary">
-          Mathematical Foundation
-        </Typography>
-        <Typography  sx={{ mb: 1 }} variant="body2">
-          The security of RSA is primarily based on the difficulty of two mathematical problems: factoring large composite integers and the RSA problem (computing modular exponentiation without the private key)
-        </Typography>
-        <Typography color="text.secondary">
-          Usage
-        </Typography>
-        <Typography  sx={{ mb: 1 }} variant="body2">
-          RSA can be used for both encryption/decryption and digital signatures.
-        </Typography>
-        <Typography color="text.secondary">
-          Vulnerabilities
-        </Typography>
-        <Typography  sx={{ mb: 1 }} variant="body2">    
-        <List>
-          <ListItem>Side-channel attacks
-            <ListItemText>These attacks exploit information gained from the physical implementation of the system, like power consumption or electromagnetic radiation. Two primary side-channel attacks against RSA are:
-
-Power analysis attacks: Varying power consumption due to computationally intensive operations can reveal clues about the secret key.
-Timing attacks: The time taken to perform encryption can potentially leak details about the encryption key.</ListItemText>
-          </ListItem>
-          <ListItem>Inadequate key length: As computational power increases, the length of RSA keys that were once considered safe becomes vulnerable. Today, a key length of at least 2048 bits is recommended for RSA.</ListItem>
-          <ListItem>Weaknesses in prime numbers: Randomness: RSA relies on random prime numbers. If these are not truly random or if they follow a predictable pattern, then the security of the RSA key is compromised.
-Closeness: If the two prime numbers used for generating RSA keys are too close in value or if one is too small, then the encryption is weakened, making it easier for attackers to determine the factors of the RSA modulus.</ListItem>
-Lost or stolen keys: If RSA keys are lost, stolen, or otherwise compromised, the security of all encrypted data is at risk.
-
-Fault-based attacks: These are attacks where errors are deliberately introduced into the system, either in the hardware or software, making the system produce incorrect outputs. This can potentially reveal details about the cryptographic keys or operations.
-        </List>
-         
-         </Typography>
-      </CardContent> 
-    </Card>
+  <Accordion>
+    <AccordionSummary
+      expandIcon={<ExpandMoreIcon />}
+      aria-controls="panel1a-content"
+      id="panel1a-header"
+    >
+      <Typography>Inadequate key length</Typography>
+    </AccordionSummary>
+    <AccordionDetails>
+      <Typography>
+        As computational power increases, the length of RSA keys that were once considered safe becomes vulnerable. Today, a key length of at least 2048 bits is recommended for RSA.
+      </Typography>
+    </AccordionDetails>
+  </Accordion>
+  <Accordion>
+    <AccordionSummary
+      expandIcon={<ExpandMoreIcon />}
+      aria-controls="panel1a-content"
+      id="panel1a-header"
+    >
+      <Typography>Weaknesses in prime numbers</Typography>
+    </AccordionSummary>
+    <AccordionDetails>
+      <Typography>
+        <strong>Randomness:</strong> RSA relies on random prime numbers. If these are not truly random or if they follow a predictable pattern, then the security of the RSA key is compromised. <br/> <strong>Closeness:</strong> If the two prime numbers used for generating RSA keys are too close in value or if one is too small, then the encryption is weakened, making it easier for attackers to determine the factors of the RSA modulus.
+      </Typography>
+    </AccordionDetails>
+  </Accordion>
+  <Accordion>
+    <AccordionSummary
+      expandIcon={<ExpandMoreIcon />}
+      aria-controls="panel1a-content"
+      id="panel1a-header"
+    >
+      <Typography>Side-channel attacks</Typography>
+    </AccordionSummary>
+    <AccordionDetails>
+      <Typography>
+        These attacks exploit information gained from the physical implementation of the system, like power consumption or electromagnetic radiation. Two primary side-channel attacks against RSA are: <br/><strong>Power analysis attacks:</strong> Varying power consumption due to computationally intensive operations can reveal clues about the secret key. <br/><strong>Timing attacks:</strong> The time taken to perform encryption can potentially leak details about the encryption key.
+      </Typography>
+    </AccordionDetails>
+  </Accordion>
   </>
 )
+const rsainfo = { 
+  name: 'RSA (Rivest-Shamir-Adleman)', 
+  foundation: "RSA is based on the mathematical properties of large prime numbers. The algorithm relies on the fact that it is computationally difficult to factor a large composite number into its prime factors. It uses modular arithmetic and the Euler's totient function to generate public and private keys.", 
+  usage: "RSA is widely used for secure data transmission, digital signatures, and secure key exchange. It is a fundamental part of secure communication on the internet, and it is used in protocols like HTTPS, SSH, and S/MIME for email security.", 
+  vulnerabilities: rsatable
+}
 
-const DSS = (
+const DSStable = (
   <>
-    <Card variant="outlined">
-      <CardContent>
-        <Typography variant="h5" component="div" sx={{ mb: 1 }}>
-          RSA (Rivest-Shamir-Adleman)
-        </Typography>
-        <Typography color="text.secondary">
-          Mathematical Foundation
-        </Typography>
-        <Typography  sx={{ mb: 1 }} variant="body2">
-          The security of RSA is primarily based on the difficulty of two mathematical problems: factoring large composite integers and the RSA problem (computing modular exponentiation without the private key)
-        </Typography>
-        <Typography color="text.secondary">
-          Mathematical Foundation
-        </Typography>
-        <Typography  sx={{ mb: 1 }} variant="body2">
-          The security of RSA is primarily based on the difficulty of two mathematical problems: factoring large composite integers and the RSA problem (computing modular exponentiation without the private key)
-        </Typography>
-      </CardContent> 
-    </Card>
+  <Accordion>
+    <AccordionSummary
+      expandIcon={<ExpandMoreIcon />}
+      aria-controls="panel1a-content"
+      id="panel1a-header"
+    >
+      <Typography>Weak Key Generation</Typography>
+    </AccordionSummary>
+    <AccordionDetails>
+      <Typography>
+        If the key generation process is flawed or the random number generator used to create keys is not truly random, it can result in weak keys that are susceptible to attacks.
+      </Typography>
+    </AccordionDetails>
+  </Accordion>
+  <Accordion>
+    <AccordionSummary
+      expandIcon={<ExpandMoreIcon />}
+      aria-controls="panel1a-content"
+      id="panel1a-header"
+    >
+      <Typography>Cryptanalysis</Typography>
+    </AccordionSummary>
+    <AccordionDetails>
+      <Typography>
+        DSA relies on the difficulty of solving the discrete logarithm problem. Advances in cryptanalysis and the use of faster computers can weaken the security of DSA over time.
+      </Typography>
+    </AccordionDetails>
+  </Accordion>
+  <Accordion>
+    <AccordionSummary
+      expandIcon={<ExpandMoreIcon />}
+      aria-controls="panel1a-content"
+      id="panel1a-header"
+    >
+      <Typography>Side-channel attacks</Typography>
+    </AccordionSummary>
+    <AccordionDetails>
+      <Typography>
+        Side-channel attacks, such as timing attacks or power analysis, can potentially leak information about the private key during the signing process if not properly protected.
+      </Typography>
+    </AccordionDetails>
+  </Accordion>
   </>
 )
+const DSSinfo = { 
+  name: 'DSS (Digital Signature Standard) & DSA (Digital Signature Algorithm)', 
+  foundation: 'DSS and DSA are based on the mathematical foundation of the Digital Signature Algorithm, which relies on the properties of modular exponentiation and the discrete logarithm problem. Specifically, it uses the difficulty of computing the discrete logarithm of a random elliptic curve element with respect to a known base point.', 
+  usage: 'DSS and DSA are used for digital signatures. They provide a way to verify the authenticity and integrity of a digital message or document. These digital signatures are widely used in applications like email, software distribution, and secure communications.', 
+  vulnerabilities: DSStable
+}
 
-const ECC = (
-  <>
-    <Card variant="outlined">
-      <CardContent>
-        <Typography variant="h5" component="div" sx={{ mb: 1 }}>
-          RSA (Rivest-Shamir-Adleman)
-        </Typography>
-        <Typography color="text.secondary">
-          Mathematical Foundation
-        </Typography>
-        <Typography  sx={{ mb: 1 }} variant="body2">
-          The security of RSA is primarily based on the difficulty of two mathematical problems: factoring large composite integers and the RSA problem (computing modular exponentiation without the private key)
-        </Typography>
-        <Typography color="text.secondary">
-          Mathematical Foundation
-        </Typography>
-        <Typography  sx={{ mb: 1 }} variant="body2">
-          The security of RSA is primarily based on the difficulty of two mathematical problems: factoring large composite integers and the RSA problem (computing modular exponentiation without the private key)
-        </Typography>
-      </CardContent> 
-    </Card>
+const ecctable = (
+  <>   
+  <Accordion>
+    <AccordionSummary
+      expandIcon={<ExpandMoreIcon />}
+      aria-controls="panel1a-content"
+      id="panel1a-header"
+    >
+      <Typography>Weak Curve Parameters</Typography>
+    </AccordionSummary>
+    <AccordionDetails>
+      <Typography>
+        The security of ECC relies on the choice of elliptic curve parameters. If weak or poorly chosen curve parameters are used, it can weaken the overall security of the system.
+      </Typography>
+    </AccordionDetails>
+  </Accordion>
+  <Accordion>
+    <AccordionSummary
+      expandIcon={<ExpandMoreIcon />}
+      aria-controls="panel1a-content"
+      id="panel1a-header"
+    >
+      <Typography>Quantum Computing</Typography>
+    </AccordionSummary>
+    <AccordionDetails>
+      <Typography>
+        ECC is vulnerable to Shor's algorithm, which could be used by sufficiently advanced quantum computers to efficiently solve the discrete logarithm problem, potentially compromising ECC security.
+      </Typography>
+    </AccordionDetails>
+  </Accordion>
   </>
 )
+const eccinfo = {
+  name: "ECC (Elliptic Curve Cryptography)",
+  foundation: 'ECC is based on the mathematical properties of elliptic curves over finite fields. It leverages the difficulty of solving the elliptic curve discrete logarithm problem (ECDLP). ECC provides strong security with relatively short key sizes compared to other asymmetric cryptographic algorithms.',
+  usage: "ECC is commonly used in applications where computational resources are limited, such as mobile devices and IoT devices. It's also used in secure communications, digital signatures, and encryption.",
+  vulnerabilities: ecctable
+}
 
-const Diffie = (
-  <>
-    <Card variant="outlined">
-      <CardContent>
-        <Typography variant="h5" component="div" sx={{ mb: 1 }}>
-          RSA (Rivest-Shamir-Adleman)
-        </Typography>
-        <Typography color="text.secondary">
-          Mathematical Foundation
-        </Typography>
-        <Typography  sx={{ mb: 1 }} variant="body2">
-          The security of RSA is primarily based on the difficulty of two mathematical problems: factoring large composite integers and the RSA problem (computing modular exponentiation without the private key)
-        </Typography>
-        <Typography color="text.secondary">
-          Mathematical Foundation
-        </Typography>
-        <Typography  sx={{ mb: 1 }} variant="body2">
-          The security of RSA is primarily based on the difficulty of two mathematical problems: factoring large composite integers and the RSA problem (computing modular exponentiation without the private key)
-        </Typography>
-      </CardContent> 
-    </Card>
+const diffietable = (
+  <>  
+  <Accordion>
+    <AccordionSummary
+      expandIcon={<ExpandMoreIcon />}
+      aria-controls="panel1a-content"
+      id="panel1a-header"
+    >
+      <Typography>Man-in-the-Middle (MitM) Attacks</Typography>
+    </AccordionSummary>
+    <AccordionDetails>
+      <Typography>
+        Without proper authentication and key management, the Diffie-Hellman key exchange is vulnerable to MitM attacks, where an attacker intercepts and modifies the exchanged keys.
+      </Typography>
+    </AccordionDetails>
+  </Accordion>
+  <Accordion>
+    <AccordionSummary
+      expandIcon={<ExpandMoreIcon />}
+      aria-controls="panel1a-content"
+      id="panel1a-header"
+    >
+      <Typography>Weak Parameters</Typography>
+    </AccordionSummary>
+    <AccordionDetails>
+      <Typography>
+        The security of Diffie-Hellman depends on the choice of prime numbers and generator values. If these parameters are poorly chosen, it can weaken the security of the key exchange.
+      </Typography>
+    </AccordionDetails>
+  </Accordion>
   </>
 )
-
-const TLS = (
-  <>
-    <Card variant="outlined">
-      <CardContent>
-        <Typography variant="h5" component="div" sx={{ mb: 1 }}>
-          RSA (Rivest-Shamir-Adleman)
-        </Typography>
-        <Typography color="text.secondary">
-          Mathematical Foundation
-        </Typography>
-        <Typography  sx={{ mb: 1 }} variant="body2">
-          The security of RSA is primarily based on the difficulty of two mathematical problems: factoring large composite integers and the RSA problem (computing modular exponentiation without the private key)
-        </Typography>
-        <Typography color="text.secondary">
-          Mathematical Foundation
-        </Typography>
-        <Typography  sx={{ mb: 1 }} variant="body2">
-          The security of RSA is primarily based on the difficulty of two mathematical problems: factoring large composite integers and the RSA problem (computing modular exponentiation without the private key)
-        </Typography>
-      </CardContent> 
-    </Card>
-  </>
-)
+const diffieinfo = {
+  name: "Diffie-Hellman Exchange",
+  foundation: 'Diffie-Hellman is based on the mathematical concept of discrete logarithm. It allows two parties to establish a shared secret over an insecure channel without exchanging the secret itself. The security of Diffie-Hellman relies on the difficulty of computing discrete logarithms in a finite field.',
+  usage: 'RSA is widely used for secure data transmission, digital signatures, and secure key exchange. It is a fundamental part of secure communication on the internet, and it is used in protocols like HTTPS, SSH, and S/MIME for email security.',
+  vulnerabilities: diffietable
+}
 
 
 export default function Examples() {
   return (<>
-    {RSA}
-    <div>
-
-      <br /><br />
-      DSS (Digital Signature Standard) & DSA (Digital Signature Algorithm):
-
-      Mathematical Foundation: DSA's security is based on the discrete logarithm problem. It's harder to compute logarithms in a finite field than to perform exponentiation.
-      Usage: As you've noted, DSA is solely for digital signatures. Unlike RSA, it cannot be used for encryption.
-      Vulnerabilities: Like RSA, the key length needed for DSA has increased over time due to advances in computing. Additionally, secure parameter generation is crucial to ensure DSA's security.
-      <br /><br />
-      ECC (Elliptical Curve Cryptography):
-
-      Mathematical Foundation: ECC's security is derived from the elliptic curve discrete logarithm problem. Basically, given a point
-      �
-      P and another point
-      �
-      Q, it's computationally difficult to find the integer
-      �
-      n such that
-      �
-      =
-      �
-      �
-      Q=nP.
-      Usage: ECC can be used in any public key application (encryption, digital signatures, key exchange). ECDSA and ECDH are two primary examples.
-      Vulnerabilities: ECC is generally considered secure when well-implemented. However, not all elliptic curves are safe, so curve selection is essential.
-      <br /><br />
-      Diffie-Hellman Exchange:
-
-      Mathematical Foundation: The security of the traditional Diffie-Hellman is based on the discrete logarithm problem in multiplicative groups of finite fields.
-      Usage: Diffie-Hellman itself is not an encryption or signature scheme but a method to securely agree upon a secret over an insecure channel.
-      Vulnerabilities: Like other discrete logarithm-based systems, its security could be threatened by quantum computers. The Logjam attack also demonstrated vulnerabilities in the implementation of Diffie-Hellman in some contexts.
-      <br /><br />
-      TLS/SSL (Transport Layer Security/Secure Sockets Layer):
-
-      Mathematical Foundation: TLS/SSL uses a combination of asymmetric and symmetric encryption. The exact algorithms can vary depending on the protocol version and configuration.
-      Usage: Beyond websites, it's used for encrypting other forms of communication like email (SMTPS, IMAPS), file transfers (FTPS), and VPNs.
-      Vulnerabilities: There have been various vulnerabilities over the years, from Heartbleed to POODLE, emphasizing the need for continuous updates and phasing out older, insecure versions of the protocol.
-    </div></>
+  <ThemeProvider theme={theme}>
+    <Box sx={{ mt: 15, width: '100%', display: 'flex', justifyContent: 'center' }}>
+      <Box sx={{ width: '85%', mb: 5}}>
+        <Typography 
+            fontSize={40} 
+            color='primary.main' 
+            mb={2} 
+            textAlign={{ sm: 'center', md: 'left', lg: 'center'}}
+          >
+            Examples
+          </Typography>
+          <Typography fontSize={17} mb={2} sx={{ fontWeight: 700 }}>These are some examples of asymmetric cryptography:</Typography>
+        <Grid 
+          container 
+          spacing={2} 
+          direction="row"
+          justifyContent="center"
+          alignItems="stretch"
+        >
+          <Grid item sm={12} md={6} xl={3}><ExampleCard info={rsainfo} /></Grid>
+          <Grid item sm={12} md={6} xl={3}><ExampleCard info={DSSinfo} /></Grid>
+          <Grid item sm={12} md={6} xl={3}><ExampleCard info={diffieinfo} /></Grid>
+          <Grid item sm={12} md={6} xl={3}><ExampleCard info={eccinfo} /></Grid>
+          </Grid>
+      </Box>
+    </Box>
+  </ThemeProvider>
+  </>
   )
 }
