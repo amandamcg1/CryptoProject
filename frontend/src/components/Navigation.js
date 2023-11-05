@@ -18,6 +18,16 @@ import theme from '../Theme';
 function Navigation () {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
 
+  // const pages = ['Home', 'Terminology', 'Examples', 'Simulation', 'Chat'];
+
+  const pages = [
+    { page: 'Home', link: '/'},
+    { page: 'Terminology', link: '/terminology'},
+    { page: 'Examples', link: '/examples'},
+    { page: 'Simulation', link: '/simulation'},
+    { page: 'Chat', link: '/chat'},
+  ]
+
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -28,7 +38,7 @@ function Navigation () {
 
   return(<>
   <ThemeProvider theme={theme}>
-    <AppBar position="fixed" color='default'>
+  <AppBar position="fixed" color='default'>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
@@ -38,7 +48,100 @@ function Navigation () {
             href="/"
             sx={{
               mr: 2,
-              display: { sm: 'none', md: 'flex' },
+              display: { xs: 'none', lg: 'flex' },
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.1rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+          >
+            ASYMMETRY IN SECURITY
+          </Typography>
+
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', lg: 'none' } }}>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenNavMenu}
+              color="inherit"
+            >
+              <MenuIcon />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorElNav}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
+              sx={{
+                display: { xs: 'block', lg: 'none' },
+              }}
+            >
+              {pages.map((page) => (
+                <MenuItem onClick={handleCloseNavMenu} component={Link} to={page.link}>
+                  <Typography textAlign="center">{page.page}</Typography>
+                </MenuItem>
+              ))}
+            </Menu>
+          </Box>
+          <Typography
+            variant="h6"
+            noWrap
+            component="a"
+            href="/"
+            sx={{
+              mr: 2,
+              display: { xs: 'flex', lg: 'none' },
+              flexGrow: 1,
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+          >
+            ASYMMETRY IN SECURITY
+          </Typography>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', lg: 'flex' }, justifyContent: 'right' }}>
+            {pages.map((page) => (
+              <Button
+                key={page.page}
+                onClick={handleCloseNavMenu}
+                component={Link}
+                to={page.link}
+                sx={{ my: 2, color: 'black', display: 'block'}}
+              >
+                {page.page}
+              </Button>
+            ))}
+          </Box>
+        </Toolbar>
+      </Container>
+    </AppBar>
+
+
+    {/* <AppBar position="fixed" color='default'>
+      <Container maxWidth="xl">
+        <Toolbar disableGutters>
+          <Typography
+            variant="h6"
+            noWrap
+            component="a"
+            href="/"
+            sx={{
+              mr: 2,
+              display: { ...'none', md: 'flex' },
               fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.1rem',
@@ -101,7 +204,7 @@ function Navigation () {
               href="/"
               sx={{
                 mr: 2,
-                display: { sm: 'flex', md: 'none' },
+                display: { ...'flex', md: 'none' },
                 flexGrow: 1,
                 fontFamily: 'monospace',
                 fontWeight: 700,
@@ -112,7 +215,7 @@ function Navigation () {
             >
               ASYMMETRY IN SECURITY
             </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex', justifyContent: 'right' } }}>
+          <Box sx={{ flexGrow: 1, display: { sm: 'none', md: 'flex', justifyContent: 'right' } }}>
           
               <Button
                 onClick={handleCloseNavMenu}
@@ -157,7 +260,7 @@ function Navigation () {
           </Box>          
         </Toolbar>
       </Container>
-    </AppBar>
+    </AppBar> */}
   </ThemeProvider>
   </>)
 }
