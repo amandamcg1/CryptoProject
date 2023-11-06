@@ -4,7 +4,7 @@ import forge from 'node-forge';
 import Grid from '@mui/material/Unstable_Grid2';
 
 import io from "socket.io-client";
-import { Alert, Box, Button, TextField, Typography } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
 import theme from "./Theme";
 
@@ -23,25 +23,6 @@ export default function ChatApp() {
   const [message, setMessage] = useState('');
   const [receivedMessages, setReceivedMessages] = useState([]);
   const [loggedIn, setLoggedIn] = useState('');
-  const [alertDisplay, setAlertDisplay] = useState('none');
-  const [alertMessage, setAlertMessage] = useState('');
-
-  function Alerted () {
-    return (<>
-    <Alert
-      severity="error"
-    >
-      {alertMessage}
-    </Alert>
-    </>)
-  }
-
-  useEffect(() => {
-    setTimeout(() => {
-      setAlertDisplay('none')
-    }, 5000);
-  }, [])
-  
 
   useEffect(() => {
     const loggedInUser = localStorage.getItem("userName");
@@ -95,13 +76,11 @@ export default function ChatApp() {
 
   const register = () => {
     if (username.length === 0) {
-      setAlertMessage("Please enter a username");
-      setAlertDisplay('block');
+      alert("Please enter a username");
       return;
     }
     if (username.length > 12) {
-      setAlertMessage("Username must be less than or 12 characters");
-      setAlertDisplay('block');
+      alert("Username must be less than or 12 characters");
       return;
     }
     socket.emit('register', username);
@@ -119,8 +98,7 @@ export default function ChatApp() {
 
   const sendMessage = () => {
     if (message.length === 0) {
-      setAlertMessage("Enter a message");
-      setAlertDisplay('block');
+      alert("Enter a message");
       return;
     }
     const encryptedMessage = message;
@@ -135,8 +113,7 @@ export default function ChatApp() {
   const encryptMessage = () => {
     console.log(message);
     if (message.length === 0) {
-      setAlertMessage("Enter a message");
-      setAlertDisplay('block');
+      alert("Enter a message");
       return;
     }
     console.log(recepientPublicKey);
@@ -176,12 +153,6 @@ export default function ChatApp() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box 
-        display={alertDisplay}
-        sx={{ mt: '80px', mb: '-60px', mr: '20px', ml: '20px'}}
-      >
-          <Alerted /> 
-      </Box>
       <div>
         {!loggedIn ? (
         <div style={{ minHeight: '80vh' }}>
