@@ -14,7 +14,7 @@ function Simulation () {
   const [decrypted, setDecrypted] = useState('');
   const [enteredPublicKey, setEnterPublicKey] = useState('');
   const [enteredPrivateKey, setEnterPrivateKey] = useState('');
-
+  
   const generateKeys = () => {
     const rsa = forge.pki.rsa;
     rsa.generateKeyPair({bits: keySize, workers: -1}, (err, keypair) => {
