@@ -8,10 +8,10 @@ function Home () {
   <ThemeProvider theme={theme} >
     <Box width='100%' height='80vh' display='flex' justifyContent='center' mt={15}>
       <Grid container direction='row' alignItems='center' height='100%' width='80%' justifyContent='center' spacing={4}>
-        <Grid item xs={12} md={6} lg={6} mr={{ lg: 10, }}>
+        <Grid item xs={12} md={6} lg={5} mr={{ lg: 10, }}>
           <Box>
             <Typography 
-              fontSize={{ xs: 40, sm: 45, md: 30, lg: 50, xl: 55}} 
+              fontSize={{ xs: 40, sm: 45, md: 30, lg: 45, xl: 55}} 
               color='white' 
               mb={2} 
               textAlign='center'
