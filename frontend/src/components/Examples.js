@@ -223,10 +223,10 @@ export default function Examples() {
           justifyContent="center"
           alignItems="stretch"
         >
-          <Grid item sm={12} md={6} lg={3}><ExampleCard info={rsainfo} /></Grid>
-          <Grid item sm={12} md={6} lg={3}><ExampleCard info={DSSinfo} /></Grid>
-          <Grid item sm={12} md={6} lg={3}><ExampleCard info={diffieinfo} /></Grid>
-          <Grid item sm={12} md={6} lg={3}><ExampleCard info={eccinfo} /></Grid>
+          <Grid item sm={12} md={6}><ExampleCard info={rsainfo} /></Grid>
+          <Grid item sm={12} md={6}><ExampleCard info={DSSinfo} /></Grid>
+          <Grid item sm={12} md={6}><ExampleCard info={diffieinfo} /></Grid>
+          <Grid item sm={12} md={6}><ExampleCard info={eccinfo} /></Grid>
           </Grid>
       </Box>
     </Box>
