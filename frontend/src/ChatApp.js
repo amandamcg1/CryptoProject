@@ -39,7 +39,7 @@ export default function ChatApp() {
   useEffect(() => {
     setTimeout(() => {
       setAlertDisplay('none')
-    }, 20000);
+    }, 5000);
   }, [])
   
 
@@ -148,7 +148,8 @@ export default function ChatApp() {
       console.log(forge.util.encode64(encrypted));
       setMessage(forge.util.encode64(encrypted));
     } catch (err){
-      alert(err);
+      setAlertMessage(err);
+      setAlertDisplay('block');
       return;
     }
     // return forge.util.encode64(encrypted);
@@ -160,8 +161,9 @@ export default function ChatApp() {
       const decrypted = decryptedPrivateKey.decrypt(forge.util.decode64(encryptedMsg), 'RSA-OAEP');
       return decrypted;
     } catch (err) {
-      alert(err);
-      return null;
+      setAlertMessage(err);
+      setAlertDisplay('block');
+      return;
     }
   };
 
