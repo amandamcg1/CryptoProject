@@ -1,15 +1,21 @@
-import { Typography,  Box, Accordion, AccordionSummary, AccordionDetails, ThemeProvider } from '@mui/material';
+import { Typography,  Box, Accordion, AccordionSummary, AccordionDetails, ThemeProvider, styled } from '@mui/material';
 import React from 'react';
 import Grid from '@mui/material/Unstable_Grid2/Grid2';
 import ExampleCard from './ExampleCard';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import theme from '../Theme';
+import accordianStyle from '../style/accordianStyle';
+
+const ExpandIcon = styled(ExpandMoreIcon)(() => ({
+  color: 'white'
+  
+}))
 
 const rsatable = (
   <>
-  <Accordion>
+  <Accordion sx={{ backgroundColor: 'rgba(255,99,75, 0.8)', color: 'white', m: 1}}>
     <AccordionSummary
-      expandIcon={<ExpandMoreIcon />}
+      expandIcon={<ExpandIcon />}
       aria-controls="panel1a-content"
       id="panel1a-header"
     >
@@ -21,9 +27,9 @@ const rsatable = (
       </Typography>
     </AccordionDetails>
   </Accordion>
-  <Accordion>
+  <Accordion sx={{ backgroundColor: 'rgba(255,99,75, 0.8)', color: 'white', m: 1}}>
     <AccordionSummary
-      expandIcon={<ExpandMoreIcon />}
+      expandIcon={<ExpandIcon />}
       aria-controls="panel1a-content"
       id="panel1a-header"
     >
@@ -35,9 +41,9 @@ const rsatable = (
       </Typography>
     </AccordionDetails>
   </Accordion>
-  <Accordion>
+  <Accordion sx={{ backgroundColor: 'rgba(255,99,75, 0.8)', color: 'white', m: 1}}>
     <AccordionSummary
-      expandIcon={<ExpandMoreIcon />}
+      expandIcon={<ExpandIcon />}
       aria-controls="panel1a-content"
       id="panel1a-header"
     >
@@ -60,9 +66,9 @@ const rsainfo = {
 
 const DSStable = (
   <>
-  <Accordion>
+  <Accordion sx={accordianStyle}>
     <AccordionSummary
-      expandIcon={<ExpandMoreIcon />}
+      expandIcon={<ExpandIcon />}
       aria-controls="panel1a-content"
       id="panel1a-header"
     >
@@ -74,9 +80,9 @@ const DSStable = (
       </Typography>
     </AccordionDetails>
   </Accordion>
-  <Accordion>
+  <Accordion sx={accordianStyle}>
     <AccordionSummary
-      expandIcon={<ExpandMoreIcon />}
+      expandIcon={<ExpandIcon />}
       aria-controls="panel1a-content"
       id="panel1a-header"
     >
@@ -88,9 +94,9 @@ const DSStable = (
       </Typography>
     </AccordionDetails>
   </Accordion>
-  <Accordion>
+  <Accordion sx={accordianStyle}>
     <AccordionSummary
-      expandIcon={<ExpandMoreIcon />}
+      expandIcon={<ExpandIcon />}
       aria-controls="panel1a-content"
       id="panel1a-header"
     >
@@ -113,9 +119,9 @@ const DSSinfo = {
 
 const ecctable = (
   <>   
-  <Accordion>
+  <Accordion sx={accordianStyle}>
     <AccordionSummary
-      expandIcon={<ExpandMoreIcon />}
+      expandIcon={<ExpandIcon />}
       aria-controls="panel1a-content"
       id="panel1a-header"
     >
@@ -127,9 +133,9 @@ const ecctable = (
       </Typography>
     </AccordionDetails>
   </Accordion>
-  <Accordion>
+  <Accordion sx={accordianStyle}>
     <AccordionSummary
-      expandIcon={<ExpandMoreIcon />}
+      expandIcon={<ExpandIcon />}
       aria-controls="panel1a-content"
       id="panel1a-header"
     >
@@ -140,7 +146,7 @@ const ecctable = (
         ECC is vulnerable to Shor's algorithm, which could be used by sufficiently advanced quantum computers to efficiently solve the discrete logarithm problem, potentially compromising ECC security.
       </Typography>
     </AccordionDetails>
-  </Accordion>
+  </Accordion >
   </>
 )
 const eccinfo = {
@@ -152,9 +158,9 @@ const eccinfo = {
 
 const diffietable = (
   <>  
-  <Accordion>
+  <Accordion sx={accordianStyle}>
     <AccordionSummary
-      expandIcon={<ExpandMoreIcon />}
+      expandIcon={<ExpandIcon />}
       aria-controls="panel1a-content"
       id="panel1a-header"
     >
@@ -166,9 +172,9 @@ const diffietable = (
       </Typography>
     </AccordionDetails>
   </Accordion>
-  <Accordion>
+  <Accordion sx={accordianStyle}>
     <AccordionSummary
-      expandIcon={<ExpandMoreIcon />}
+      expandIcon={<ExpandIcon />}
       aria-controls="panel1a-content"
       id="panel1a-header"
     >
@@ -196,13 +202,19 @@ export default function Examples() {
     <Box sx={{ mt: 15, width: '100%', display: 'flex', justifyContent: 'center' }}>
       <Box sx={{ width: '85%', mb: 5}}>
         <Typography 
-            fontSize={40} 
-            color='primary.main' 
-            mb={2} 
-            textAlign={{ sm: 'center', md: 'left', lg: 'center'}}
+          fontSize={40} 
+          color='white' 
+          mb={6} 
+          textAlign='center'
+          fontFamily='Titillium Web'
+          letterSpacing='.5rem'
+        >
+          <Box
+            sx={{ backgroundColor: 'primary.main', pt: 2, pb: 2, pl: 3, pr: 3,  display: 'inline-block', borderRadius: '5px' }}
           >
-            Examples
-          </Typography>
+            EXAMPLES
+          </Box>
+        </Typography>
           <Typography fontSize={17} mb={2} sx={{ fontWeight: 700 }}>These are some examples of asymmetric cryptography:</Typography>
         <Grid 
           container 

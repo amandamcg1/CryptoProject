@@ -7,7 +7,7 @@ import theme from "../Theme";
 const card = ({info}) => {
   return (<>
   <ThemeProvider theme={theme}>
-    <Card sx={{ border: '2px solid #C5CBE3', height: '100%'}}>
+    <Card sx={{ border: '3px solid #C5CBE3', height: '100%'}}>
       <CardContent>
         <Typography sx={exampleTitle}>
           {info.name}

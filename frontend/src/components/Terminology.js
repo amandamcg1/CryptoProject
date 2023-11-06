@@ -26,6 +26,8 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.secondary.dark,
     color: theme.palette.common.white,
+    fontWeight: 700,
+    fontSize: 16
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
@@ -37,14 +39,21 @@ export default function Terminology() {
     <ThemeProvider theme={theme}>
     <Box sx={{ mt: 15, width: '100%', display: 'flex', justifyContent: 'center' }}>
       <Box sx={{ width: '80%', mb: 5}}>
-        <Typography 
-          fontSize={40} 
-          color='primary.main' 
-          mb={2} 
-          textAlign={{ sm: 'center', md: 'left', lg: 'center'}}
-        >
-          Terminology
-        </Typography>
+          <Typography 
+            fontSize={40} 
+            color='white' 
+            mb={8} 
+            textAlign='center'
+            fontFamily='Titillium Web'
+            letterSpacing='.5rem'
+          >
+            <Box
+              sx={{ backgroundColor: 'primary.main', pt: 2, pb: 2, pl: 3, pr: 3,  display: 'inline-block', borderRadius: '5px' }}
+            >
+              TERMINOLOGY
+            </Box>
+          </Typography>
+        
         <Typography fontSize={17} mb={2} sx={{ fontWeight: 700 }}>This is some of the terminology related to asymmetric cryptography</Typography>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 550 }} aria-label="simple table">

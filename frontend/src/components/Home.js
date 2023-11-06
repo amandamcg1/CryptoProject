@@ -11,15 +11,20 @@ function Home () {
         <Grid item xs={12} md={6} lg={6} mr={{ lg: 10, }}>
           <Box>
             <Typography 
-              fontSize={48} 
-              color='primary.main' 
+              fontSize={{ xs: 40, sm: 45, md: 30, lg: 50, xl: 55}} 
+              color='white' 
               mb={2} 
-              borderBottom='2px solid'
-              textAlign={{ xs: 'center', md: 'left', lg: 'center'}}
+              textAlign='center'
+              fontFamily='Titillium Web'
+              letterSpacing='.5rem'
             >
-              Asymmetric Cryptography
+              <Box
+                sx={{ backgroundColor: 'primary.main', pt: 2, pb: 2, pl: 3, pr: 3,  display: 'inline-block', borderRadius: '5px' }}
+              >
+                ASYMMETRIC CRYPTOGRAPHY
+              </Box>
             </Typography>
-            <Typography textAlign="justify">
+            <Typography textAlign="justify" p={1}>
               Asymmetric cryptography is a method of encryption where two 
               different keys are used: a public key and a private key. The
               public key is used for encryption, while the private key is 

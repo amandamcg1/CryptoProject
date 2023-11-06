@@ -68,45 +68,52 @@ function Simulation () {
 
   return(<>
   <ThemeProvider theme={theme}>
-    <Box sx={{ 
-      mt: 15
-    }}>
-      <Typography 
-          fontSize={40} 
-          color='primary.main' 
-          mb={2} 
-          textAlign={{ sm: 'center', md: 'left', lg: 'center'}}
-        >
-          RSA Cyrptography
-        </Typography>
-    </Box>
+    <Typography 
+      mt={15}
+      fontSize={40} 
+      color='white' 
+      mb={2} 
+      textAlign='center'
+      fontFamily='Titillium Web'
+      letterSpacing='.5rem'
+    >
+      <Box
+        sx={{ backgroundColor: 'primary.main', pt: 2, pb: 2, pl: 3, pr: 3,  display: 'inline-block', borderRadius: '5px' }}
+      >
+        RSA CRYPTOGRAPHY
+      </Box>
+    </Typography>
     <Box width='90%' m='auto' mt='30px'>
-      <Typography mb='10px'>
+      <Typography mb={4}>
         RSA stands for Rivest-Shamir-Adleman, named after its inventors Ron Rivest, Adi Shamir, and Leonard Adleman.
         In RSA, two distinct keys are involved: a public key, which can be shared openly, and a private key, which remains confidential. Data that is encrypted with the public key can only be decrypted by the corresponding private key, and vice versa.
       </Typography>
-      <Grid container>
-        <Grid item xs={12} sm={6}>
-          <Typography variant='h6' mb='5px'>Advantages:</Typography>
-            <List sx={{ listStyleType: 'disc', pl: 4 }}>
-              <ListItem sx={{ display: 'list-item' }}>Security: When using large key sizes, RSA is considered highly secure. The security is based on the difficulty of the prime factorization problem.</ListItem>
-              <ListItem sx={{ display: 'list-item' }}>Asymmetric: RSA's asymmetric nature allows for the public key to be distributed freely without compromising the private key, ensuring secure communication.</ListItem>
-              <ListItem sx={{ display: 'list-item' }}>Digital Signatures: RSA can be used to digitally sign an electronic document, verifying its authenticity and integrity.</ListItem>
-            </List>
+      <Grid container mb={8} spacing={4}>
+        <Grid item xs={12} md={6}>
+          <Box sx={{ backgroundColor: 'rgba(144, 238, 144, 0.4)', p: 3, borderRadius: '5px', border: '2px solid lightgreen'}}>
+            <Typography variant='h6' mb='5px'>Advantages:</Typography>
+              <List sx={{ listStyleType: 'disc', pl: 4 }}>
+                <ListItem sx={{ display: 'list-item' }}>Security: When using large key sizes, RSA is considered highly secure. The security is based on the difficulty of the prime factorization problem.</ListItem>
+                <ListItem sx={{ display: 'list-item' }}>Asymmetric: RSA's asymmetric nature allows for the public key to be distributed freely without compromising the private key, ensuring secure communication.</ListItem>
+                <ListItem sx={{ display: 'list-item' }}>Digital Signatures: RSA can be used to digitally sign an electronic document, verifying its authenticity and integrity.</ListItem>
+              </List>
+          </Box>
         </Grid>
-        <Grid item xs={12} sm>
-          <Typography variant='h6' mb='5px'>Disadvantages:</Typography>
+        <Grid item xs={12} md>
+          <Box sx={{ backgroundColor: 'rgba(255, 204, 203, 0.4)', p: 3, borderRadius: '5px', border: '2px solid #FFCCCB'}}>
+            <Typography variant='h6' mb='5px'>Disadvantages:</Typography>
             <List sx={{ listStyleType: 'disc', pl: 4 }}>
               <ListItem sx={{ display: 'list-item' }}>Performance: RSA operations are computationally intensive and are generally slower than symmetric encryption methods.</ListItem>
               <ListItem sx={{ display: 'list-item' }}>Key Size: For the same level of security, RSA requires much larger key sizes than symmetric algorithms.</ListItem>
               <ListItem sx={{ display: 'list-item' }}>Vulnerabilities: Though rare, mathematical advances or sufficiently powerful quantum computers in the future might pose threats to RSA.</ListItem>
             </List>
+          </Box>
         </Grid>
       </Grid>
 
       <Typography mb='10px' variant='h4' textAlign='center'>Key Generation</Typography>
       {/* Key Generation */}
-      <Grid container spacing={1} mb={4}>
+      <Grid container spacing={1} mb={8}>
         <Grid item xs={12} md={5} lg={6} order={{ xs: 2, md: 1 }}>
           <Grid container>
             <Typography sx={{ backgroundColor: 'secondary.light', p: 2, borderRadius: '6px', width: '100%'}} textAlign="center" fontSize={17}>Chose a bit size and generate your two keys</Typography>
@@ -174,7 +181,7 @@ function Simulation () {
             </Box>
           </Grid>
         </Grid>
-        <Grid item xs={12} md lg order={{ xs: 1, md: 2 }}>
+        <Grid item xs={12} md lg order={{ xs: 1, md: 2 }} ml={{ md: 6}}>
           <Typography mb='10px' variant='h6' textAlign='center'>How RSA public and private keys are generated</Typography>
           <Typography>
             The bit size dictates how long the RSA key will be. This determines the size of the 
@@ -195,7 +202,7 @@ function Simulation () {
 
       <Typography mb='10px' variant='h4' textAlign='center'>Encryption</Typography>
       {/* Encryption */}
-      <Grid container spacing={1} mb={4}>
+      <Grid container spacing={1} mb={8}>
         <Grid item xs={12} md={5} lg={6} order={{ xs: 2, md: 1 }}>
           <Grid container>
             <Typography sx={{ backgroundColor: 'secondary.light', p: 2, borderRadius: '6px', width: '100%'}} textAlign="center" fontSize={17}>Enter in some plain text and copy and paste the Public Key above</Typography>
@@ -232,7 +239,7 @@ function Simulation () {
             </Box>
           </Grid>
         </Grid>
-        <Grid item xs={12} md lg order={{ xs: 1, md: 2 }}>
+        <Grid item xs={12} md lg order={{ xs: 1, md: 2 }} ml={{ md: 6}}>
           <Typography mb='10px' variant='h6' textAlign='center'>How RSA Encryption works</Typography>
           <Typography>
             Before starting the encryption process, the plaintext message is converted into a numerical representation. 
@@ -254,7 +261,7 @@ function Simulation () {
 
       <Typography mb='10px' variant='h4' textAlign='center'>Decryption</Typography>
       {/* Decryption */}
-      <Grid container spacing={3} mb={4}>
+      <Grid container spacing={3} mb={15}>
         <Grid item xs={12} md={5} lg={6} order={{ xs: 2, md: 1 }}>
           <Grid container textAlign='center'>
             <Typography sx={{ backgroundColor: 'secondary.light', p: 2, borderRadius: '6px', width: '100%'}} textAlign="center" fontSize={17}>Copy and Paste the Private Key to get decrypted message</Typography>
@@ -301,7 +308,7 @@ function Simulation () {
           />
           </Grid>
         </Grid>
-        <Grid item xs={12} md lg order={{ xs: 1, md: 2 }}>
+        <Grid item xs={12} md lg order={{ xs: 1, md: 2 }} ml={{ md: 6}}>
           <Typography mb='10px' variant='h6' textAlign='center'>How RSA decryption works</Typography>
           
           <Typography>
