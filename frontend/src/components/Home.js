@@ -8,14 +8,14 @@ function Home () {
   <ThemeProvider theme={theme} >
     <Box width='100%' height='80vh' display='flex' justifyContent='center' mt={15}>
       <Grid container direction='row' alignItems='center' height='100%' width='80%' justifyContent='center' spacing={4}>
-        <Grid item xs={12} md={5} lg={5} mr={{ lg: 10, }}>
+        <Grid item xs={12} md={6} lg={6} mr={{ lg: 10, }}>
           <Box>
             <Typography 
-              fontSize={40} 
+              fontSize={48} 
               color='primary.main' 
               mb={2} 
               borderBottom='2px solid'
-              textAlign={{ sm: 'center', md: 'left', lg: 'center'}}
+              textAlign={{ xs: 'center', md: 'left', lg: 'center'}}
             >
               Asymmetric Cryptography
             </Typography>
