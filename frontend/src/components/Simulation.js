@@ -83,13 +83,15 @@ function Simulation () {
         RSA CRYPTOGRAPHY
       </Box>
     </Typography>
-    <Box width='90%' m='auto' mt='30px'>
+    <Box width='90%' m='auto' mt='30px' height='100%'>
       <Typography mb={4}>
         RSA stands for Rivest-Shamir-Adleman, named after its inventors Ron Rivest, Adi Shamir, and Leonard Adleman.
         In RSA, two distinct keys are involved: a public key, which can be shared openly, and a private key, which remains confidential. Data that is encrypted with the public key can only be decrypted by the corresponding private key, and vice versa.
       </Typography>
-      <Grid container mb={8} spacing={4}>
-        <Grid item xs={12} md={6}>
+      <Grid container mb={8} spacing={4} 
+        direction="row"
+        alignItems="stretch">
+        <Grid item xs={12} md={6} display='flex'>
           <Box sx={{ backgroundColor: 'rgba(144, 238, 144, 0.4)', p: 3, borderRadius: '5px', border: '2px solid lightgreen'}}>
             <Typography variant='h6' mb='5px'>Advantages:</Typography>
               <List sx={{ listStyleType: 'disc', pl: 4 }}>
@@ -99,7 +101,7 @@ function Simulation () {
               </List>
           </Box>
         </Grid>
-        <Grid item xs={12} md>
+        <Grid item xs={12} md display='flex'>
           <Box sx={{ backgroundColor: 'rgba(255, 204, 203, 0.4)', p: 3, borderRadius: '5px', border: '2px solid #FFCCCB'}}>
             <Typography variant='h6' mb='5px'>Disadvantages:</Typography>
             <List sx={{ listStyleType: 'disc', pl: 4 }}>
